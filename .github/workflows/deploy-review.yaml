@@ -1,9 +1,7 @@
-name: Firebase CI
+name: deploy:review
 
 on:
-  push:
-    tags:
-      - "**"
+  pull_request:
 
 jobs:
   build:
@@ -48,11 +46,3 @@ jobs:
           args: deploy --only hosting
         env:
           FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
-  delete-artifacts:
-    name: Delete artifacts
-    needs: deploy
-    runs-on: ubuntu-latest
-    steps:
-      - uses: geekyeggo/delete-artifact@v1
-        with:
-          name: build
