@@ -1,5 +1,17 @@
 {
   "projects": {
     "default": "deploy-react-18e16"
+  },
+  "targets": {
+    "deploy-react-18e16": {
+      "hosting": {
+        "qa": [
+          "deploy-react-18e16"
+        ],
+        "prod": [
+          "deploy-react-18e16"
+        ]
+      }
+    }
   }
 }
