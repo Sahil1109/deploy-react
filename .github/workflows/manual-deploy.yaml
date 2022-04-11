@@ -1,7 +1,6 @@
-name: Firebase CI
-
+name: deploy:dev
 on:
-  push:
+  workflow_dispatch:
 
 jobs:
   build:
