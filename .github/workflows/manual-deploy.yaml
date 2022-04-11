@@ -25,11 +25,13 @@ jobs:
         run: |
           npm install
           npm run build
+        if: env.GIT_DIFF
       - name: Archive Build
         uses: actions/upload-artifact@v2
         with:
           name: build
           path: build
+        if: env.GIT_DIFF
 
   deploy:
     name: Deploy
@@ -37,22 +39,32 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
+      - uses: technote-space/get-diff-action@v6
+        with:
+          PATTERNS: "**/*.+(sol|tsx|css|ts|js|json|txt)"
       - name: Download Build
         uses: actions/download-artifact@v2
         with:
           name: build
           path: build
+        if: env.GIT_DIFF
       - name: Depoy to Firebase
         uses: w9jds/firebase-action@master
         with:
           args: deploy --only hosting:qa
         env:
           FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
+        if: env.GIT_DIFF
   delete-artifacts:
     name: Delete artifacts
     needs: deploy
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v2
+      - uses: technote-space/get-diff-action@v6
+        with:
+          PATTERNS: "**/*.+(sol|tsx|css|ts|js|json|txt)"
       - uses: geekyeggo/delete-artifact@v1
         with:
           name: build
+        if: env.GIT_DIFF
