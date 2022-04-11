@@ -1,7 +1,6 @@
-name: deploy:review
-
+name: deploy:dev
 on:
-  pull_request:
+  workflow_dispatch:
 
 jobs:
   build:
@@ -18,6 +17,9 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: ${{ matrix.node-version }}
+      - uses: technote-space/get-diff-action@v6
+        with:
+          PATTERNS: "**/*.+(sol|tsx|css|ts|js|json|txt)"
       - run: npm install -g npm
       - name: npm install, build
         run: |
@@ -43,6 +45,14 @@ jobs:
       - name: Depoy to Firebase
         uses: w9jds/firebase-action@master
         with:
-          args: deploy --only hosting
+          args: deploy --only hosting:qa
         env:
           FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
+  delete-artifacts:
+    name: Delete artifacts
+    needs: deploy
+    runs-on: ubuntu-latest
+    steps:
+      - uses: geekyeggo/delete-artifact@v1
+        with:
+          name: build
