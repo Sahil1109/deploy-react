@@ -9,7 +9,7 @@
           "deploy-react-18e16"
         ],
         "qa-app": [
-          "qa-app"
+          "qa-deploy"
         ]
       }
     }
