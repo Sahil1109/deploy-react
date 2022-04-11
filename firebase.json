@@ -16,8 +16,8 @@
       "ignore": ["firebase.json", "**/.*", "**/node_modules/**"]
     },
     {
-      "public": "prod-app",
-      "target": "production-app",
+      "public": "build",
+      "target": "prod-app",
       "ignore": ["firebase.json", "**/.*", "**/node_modules/**"]
     }
   ]
