@@ -2,7 +2,7 @@
   "hosting": [
     {
       "public": "build",
-      "target": "qa",
+      "target": "qa-app",
       "ignore": ["firebase.json", "**/.*", "**/node_modules/**"]
     },
     {

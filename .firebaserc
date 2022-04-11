@@ -6,7 +6,7 @@
     "deploy-react-18e16": {
       "hosting": {
         "qa": [
-          "deploy-react-18e16"
+          "qa-app"
         ],
         "prod": [
           "deploy-react-18e16"
